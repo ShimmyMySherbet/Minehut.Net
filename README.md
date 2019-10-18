@@ -19,9 +19,143 @@ MinehutApiClient Minehut = New MinehutApiClient();
 Minehut.Login("Email@domain.com", "SuperSecretPassword");
 ```
 
-### GetServers
+
+### GetServers()
 Using this function, you can access all of the currently running public minehut servers. These servers are return as an IList of the Server type. (Within Minehut.Types)
 ```C#
-
-
+IList<Server> servers = Minehut.GetServers();
 ```
+
+### GetSelfServers()
+This retrives the IDs of your servers, these IDs are used to specify what server you want to effect with other functions/methods.
+```C#
+String[] MyServers = Minehut.GetSelfServers;
+```
+
+### GetPlugins()
+This fucntion will retreve all plugins avaliable on minehut.
+```C#
+IList<Plugin> Plugins = Minehut.GetPlugins();
+```
+
+### GetServerByID()
+This will get extended information about the specifed server. It requires a server ID, and it will return information about the server.
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+ExtendedServer ExtendedServerInformation = Minehut.GetServerByID(Server1ID);
+```
+
+### GetServerByName()
+This function will return the save information as GetServerByID(), but this uses the server name instead of the server ID.
+```C#
+ExtendedServer ExtendedServerInformation = Minehut.GetServerByID("Skyblock");
+```
+
+### GetServerFiles()
+Using this function, you can retrive the files stored as part of ypur minecraft server. Each file is stored as a ServerFile Object (In Minehut.Types). These objects contains:
+* File Name
+* If it's a directory/folder
+* If the file/folder is protected
+
+You need to specify the server ID, and optionally you can also specify the path. By default, it will return files stored in the server's root directory.
+
+To get the root directory files:
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+Ilist<ServerFile> RootFiles = Minehut.GetServerFiles(Server1ID);
+```
+
+To get the files of the specified folder:
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+Ilist<ServerFile> EssentialsConfigFiles = Minehut.GetServerFiles(Server1ID, "Plugins\Essentials");
+```
+
+### GetServerPlugins()
+This will return all of the installed plugins of the specified server. They return as an Ilist of InstalledPlugin (In Minehut.Types)
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+Ilist<InstalledPlugin> InstalledPlugins = Minehut.GetServerPlugins(Server1ID);
+```
+### GetServerStatus
+This returns the status of the given server. Useful to see how many people are online, who is online, the state of the server, ect. Returns as a Status object (In Minehut.Types)
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+Status MyServerStatus = Minehut.GetServerStatus(Server1ID);
+```
+
+### GetAuthToken()
+This returns a AuthToken object (In  Minehut.types). It encapulates the session ID and Access Token required to authenticate to the minehut API. This is useful if you want to save the session ID/token. It's main use is for the MinehutEventprovider. Examples of this will be seen later in this document
+
+NOTE: You need to have logged into minehut before calling this function.
+
+```C#
+AuthToken Auth = Minehut.GetAuthToken();
+```
+
+### ChangeServerMOTD()
+This method changes the specified server's MOTD (the title message seen on the minecraft server's list)
+
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+Minehut.ChangeServerMOTD(Server1ID, "Welcome to my epic minecraft server!");
+```
+
+### ChangeServerName()
+This changes the server's name and IP address. It will throw an error if the name is already taken, so I recomend putting it in a try catch.
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+try
+{
+
+  Minehut.ChangeServerName(Server1ID, "MySky");
+  
+  Console.WriteLine("Server name changed!");
+}
+catch (ArgumentNullException ex)
+{
+   Console.WriteLine("OOPS! that name is already taken!");
+}
+```
+
+### ChangeServerProperty()
+Using this, you can change any of the server's properties. Specifting the server ID, Server Property (using the ServerProperties Enum, stored in Minehut.Types) and the new property value, you can change any of these properties: Allow Flight, Allow Nether, Annouce Player Achievements, Difficulty, Enable Command Blocks, Force Gamemode, Gamemode, Generate Structures, Generator Settings, Hardcore, Level Name, Level Type, Max Players (10 or 20, can go higher if you have a paid server), PVP, Resource Pack (download url), Spawn Animals, and Spawn Mobs.
+
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+Minehut.ChangeServerProperty(Server1ID, Serverproperties.difficulty, "normal");
+Minehut.ChangeServerProperty(Server1ID, Serverproperties.Level_Name, "world1");
+Minehut.ChangeServerProperty(Server1ID, Serverproperties.MaxPlayers, 20);
+```
+
+### ChangeServerVisibility()
+This allows you to make the server Public or Private. Specify the server ID and if it is to be public or private.
+True = Public
+False = Private
+
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String SuperSecretServersID = MyServers[0];
+
+Minehut.ChangeServerVisibility(SuperSecretServersID, False)
+```
+
+### InstallServerPlugin()
+Installs the specified plugin to a minecraft server. For finding the plugin IDs, it is recomended to use the GetPlugins() function.
+
