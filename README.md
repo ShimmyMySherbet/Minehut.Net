@@ -201,7 +201,83 @@ String Sevrer1ID = MyServers[0];
 Minehut.RepairServer(Server1ID);
 ```
 
+### ResetServer()
+Deletes all server files of the specifed server, resetting it back to factory defaults and deleting all worlds, plugins ect.
 
+NOTE: This CANNOT be undone. The files will be permenantly lost, so it is recomended to backup the server files before doing this.
+```C#
+Minehut.ResetServer(ServerID);
+```
 
+### ResetServerPlugin()
+This resets the config for the given plugin on the given server. Useful if the config file is completely broken.
 
+```C#
+Minehut.ResetServerPlugin(ServerID, PluginID);
+```
+
+### ResetServerWorld()
+This wipes and regenerates the default server world. Remember, this wipes the server, everything will be lost.
+
+```C#
+Minehut.ResetServerWorld(ServerID);
+```
+
+### SaveServer()
+Saves the server's world. Same as /Save.
+
+```C#
+Minehut.SaveServer(ServerID);
+```
+
+### SendCommand
+This sends the specified command to the server via console. All commands run as server, and thefore with operator privlages.
+
+```C#
+minehut.SendCommand(ServerID, "Op ShimmyMySherbet")
+minehut.SendCommand(ServerID, "Broadcast Server shutting down in 5 minutes!")
+```
+### StartService()
+Starts the service and server for the specified minecraft server.
+
+```C#
+Minehut.StartService(ServerID);
+```
+
+### StartServer()
+Starts the minecraft server. NOTE: Only use this if the service is already online, it's normally best just to use StartService().
+
+```C#
+Minehut.StartServer(ServerID);
+```
+
+### ShutdownService()
+Saves, then shuts down the minecraft server and it's service. Use this if you don't plan on starting the server up again within the next 5 min.
+
+```C#
+Minehut.ShutdownService(ServerID);
+```
+
+### ShutdownServer()
+Saves, then shuts down the server, but not the service. So you can quickly start the server back up again. Useful for applying property changes or plugin changes.
+
+```C#
+Minehut.ShutdownServer(ServerID);
+```
+
+### SignUp
+Allows you to sign up for a minehut account. It is recomended just to use the minehut website for this though.
+
+```C#
+Date DateOfBirth = New Date(2000, 9, 15);
+
+Minehut.SignUp("Email@Domain.com", DateOfBirth);
+```
+This will trigger minehut to send teh verification code to the specified email.
+
+### ConfirmEmail
+This allows you to confirm your minehut account using the email code sent to your email address (see above)
+
+```C#
+Minehut.ConfirmEmail("SuperSecretPassword124", "EmailverificationCode");
 
