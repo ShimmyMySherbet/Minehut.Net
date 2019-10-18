@@ -1,13 +1,13 @@
 # Minehut.Net
-This project allows for easy intergration to your minehut account/server. It includes all of the features of the minehut backend API, including the ability to make/verify accounts.
+This project allows for easy integration to your minehut account/server. It includes all the features of the minehut backend API, including the ability to make/verify accounts.
 
-This project was written in Visual Basic, but as it is a .NET library, it makes no differance to using it in C#.
+This project was written in Visual Basic, but as it is a .NET library, it makes no difference to using it in C#.
 
 # Documentation
 The first part you will need to know, the bulk of this library is in the MinehutAPIClient
 
 ## MinehutAPIClient
-Most of the features of the minehut API will require logging in, so you can access your servers. To do this, use the Login() method. For most of the functions contain within this class, it is recomended to import the Minehut.Types class.
+Most of the features of the minehut API will require logging in, so you can access your servers. To do this, use the Login() method. For most of the functions contain within this class, it is recommended to import the Minehut.Types class.
 ```C#
 using Minehut.Types;
 ```
@@ -27,19 +27,19 @@ IList<Server> servers = Minehut.GetServers();
 ```
 
 ### GetSelfServers()
-This retrives the IDs of your servers, these IDs are used to specify what server you want to effect with other functions/methods.
+This retrieves the IDs of your servers, these IDs are used to specify what server you want to effect with other functions/methods.
 ```C#
 String[] MyServers = Minehut.GetSelfServers;
 ```
 
 ### GetPlugins()
-This fucntion will retreve all plugins avaliable on minehut.
+This function will retrieve all plugins available on minehut.
 ```C#
 IList<Plugin> Plugins = Minehut.GetPlugins();
 ```
 
 ### GetServerByID()
-This will get extended information about the specifed server. It requires a server ID, and it will return information about the server.
+This will get extended information about the specified server. It requires a server ID, and it will return information about the server.
 ```C#
 String[] MyServers = Minehut.GetSelfServers();
 String Sevrer1ID = MyServers[0];
@@ -54,7 +54,7 @@ ExtendedServer ExtendedServerInformation = Minehut.GetServerByID("Skyblock");
 ```
 
 ### GetServerFiles()
-Using this function, you can retrive the files stored as part of ypur minecraft server. Each file is stored as a ServerFile Object (In Minehut.Types). These objects contains:
+Using this function, you can retrieve the files stored as part of your Minecraft server. Each file is stored as a ServerFile Object (In Minehut.Types). These objects contains:
 * File Name
 * If it's a directory/folder
 * If the file/folder is protected
@@ -78,7 +78,7 @@ Ilist<ServerFile> EssentialsConfigFiles = Minehut.GetServerFiles(Server1ID, "Plu
 ```
 
 ### GetServerPlugins()
-This will return all of the installed plugins of the specified server. They return as an Ilist of InstalledPlugin (In Minehut.Types)
+This will return all of the installed plugins of the specified server. They return as an IList of InstalledPlugin (In Minehut.Types)
 ```C#
 String[] MyServers = Minehut.GetSelfServers();
 String Sevrer1ID = MyServers[0];
@@ -95,7 +95,7 @@ Status MyServerStatus = Minehut.GetServerStatus(Server1ID);
 ```
 
 ### GetAuthToken()
-This returns a AuthToken object (In  Minehut.types). It encapulates the session ID and Access Token required to authenticate to the minehut API. This is useful if you want to save the session ID/token. It's main use is for the MinehutEventprovider. Examples of this will be seen later in this document
+This returns a AuthToken object (In  Minehut.types). It encapsulates the session ID and Access Token required to authenticate to the minehut API. This is useful if you want to save the session ID/token. It's main use is for the MinehutEventprovider. Examples of this will be seen later in this document
 
 NOTE: You need to have logged into minehut before calling this function.
 
@@ -104,7 +104,7 @@ AuthToken Auth = Minehut.GetAuthToken();
 ```
 
 ### ChangeServerMOTD()
-This method changes the specified server's MOTD (the title message seen on the minecraft server's list)
+This method changes the specified server's MOTD (the title message seen on the Minecraft server's list)
 
 ```C#
 String[] MyServers = Minehut.GetSelfServers();
@@ -114,7 +114,7 @@ Minehut.ChangeServerMOTD(Server1ID, "Welcome to my epic minecraft server!");
 ```
 
 ### ChangeServerName()
-This changes the server's name and IP address. It will throw an error if the name is already taken, so I recomend putting it in a try catch.
+This changes the server's name and IP address. It will throw an error if the name is already taken, so I recommend putting it in a try catch.
 ```C#
 String[] MyServers = Minehut.GetSelfServers();
 String Sevrer1ID = MyServers[0];
@@ -133,7 +133,7 @@ catch (ArgumentNullException ex)
 ```
 
 ### ChangeServerProperty()
-Using this, you can change any of the server's properties. Specifting the server ID, Server Property (using the ServerProperties Enum, stored in Minehut.Types) and the new property value, you can change any of these properties: Allow Flight, Allow Nether, Annouce Player Achievements, Difficulty, Enable Command Blocks, Force Gamemode, Gamemode, Generate Structures, Generator Settings, Hardcore, Level Name, Level Type, Max Players (10 or 20, can go higher if you have a paid server), PVP, Resource Pack (download url), Spawn Animals, and Spawn Mobs.
+Using this, you can change any of the server's properties. Specifying the server ID, Server Property (using the ServerProperties Enum, stored in Minehut.Types) and the new property value, you can change any of these properties: Allow Flight, Allow Nether, Announce Player Achievements, Difficulty, Enable Command Blocks, Force Gamemode, Gamemode, Generate Structures, Generator Settings, Hardcore, Level Name, Level Type, Max Players (10 or 20, can go higher if you have a paid server), PVP, Resource Pack (download url), Spawn Animals, and Spawn Mobs.
 
 ```C#
 String[] MyServers = Minehut.GetSelfServers();
@@ -157,7 +157,7 @@ Minehut.ChangeServerVisibility(SuperSecretServersID, False);
 ```
 
 ### InstallServerPlugin()
-Installs the specified plugin to a minecraft server. For finding the plugin IDs, it is recomended to use the GetPlugins() function.
+Installs the specified plugin to a Minecraft server. For finding the plugin IDs, it is recommended to use the GetPlugins() function.
 For example, this is the ID for the Essentials plugin: 5a42ba4846246d33fa64c625
 
 ```C#
@@ -175,7 +175,7 @@ Minehut.InstallServerPlugin(Server1ID, "5a42ba4846246d33fa64c625");
 ```
 
 ### RemoveServerPlugin()
-Uninstalls a plugin form a minecraft server. Pretty similar to InstallServerPlugin(), but instead of installing the plugin, it removes it.
+Uninstalls a plugin form a Minecraft server. Pretty similar to InstallServerPlugin(), but instead of installing the plugin, it removes it.
 
 ```C#
 String[] MyServers = Minehut.GetSelfServers();
@@ -192,7 +192,7 @@ Minehut.RemoveServerPlugin(Server1ID, "5a42ba4846246d33fa64c625");
 ```
 
 ### RepairServer()
-Repairs all of the minecraft server files, used to fixed broken/corrupt minecraft server files.
+Repairs all of the Minecraft server files, used to fixed broken/corrupt Minecraft server files.
 
 ```C#
 String[] MyServers = Minehut.GetSelfServers();
@@ -202,9 +202,9 @@ Minehut.RepairServer(Server1ID);
 ```
 
 ### ResetServer()
-Deletes all server files of the specifed server, resetting it back to factory defaults and deleting all worlds, plugins ect.
+Deletes all server files of the specified server, resetting it back to factory defaults and deleting all worlds, plugins ect.
 
-NOTE: This CANNOT be undone. The files will be permenantly lost, so it is recomended to backup the server files before doing this.
+NOTE: This CANNOT be undone. The files will be permanently lost, so it is recommended to back up the server files before doing this.
 ```C#
 Minehut.ResetServer(ServerID);
 ```
@@ -231,28 +231,28 @@ Minehut.SaveServer(ServerID);
 ```
 
 ### SendCommand
-This sends the specified command to the server via console. All commands run as server, and thefore with operator privlages.
+This sends the specified command to the server via console. All commands run as server, and therefore with operator privileges.
 
 ```C#
 minehut.SendCommand(ServerID, "Op ShimmyMySherbet")
 minehut.SendCommand(ServerID, "Broadcast Server shutting down in 5 minutes!")
 ```
 ### StartService()
-Starts the service and server for the specified minecraft server.
+Starts the service and server for the specified Minecraft server.
 
 ```C#
 Minehut.StartService(ServerID);
 ```
 
 ### StartServer()
-Starts the minecraft server. NOTE: Only use this if the service is already online, it's normally best just to use StartService().
+Starts the Minecraft server. NOTE: Only use this if the service is already online, it's normally best just to use StartService().
 
 ```C#
 Minehut.StartServer(ServerID);
 ```
 
 ### ShutdownService()
-Saves, then shuts down the minecraft server and it's service. Use this if you don't plan on starting the server up again within the next 5 min.
+Saves, then shuts down the Minecraft server and it's service. Use this if you don't plan on starting the server up again within the next 5 min.
 
 ```C#
 Minehut.ShutdownService(ServerID);
@@ -266,14 +266,14 @@ Minehut.ShutdownServer(ServerID);
 ```
 
 ### SignUp
-Allows you to sign up for a minehut account. It is recomended just to use the minehut website for this though.
+Allows you to sign up for a minehut account. It is recommended just to use the minehut website for this though.
 
 ```C#
 Date DateOfBirth = New Date(2000, 9, 15);
 
 Minehut.SignUp("Email@Domain.com", DateOfBirth);
 ```
-This will trigger minehut to send teh verification code to the specified email.
+This will trigger minehut to send the verification code to the specified email.
 
 ### ConfirmEmail
 This allows you to confirm your minehut account using the email code sent to your email address (see above)
