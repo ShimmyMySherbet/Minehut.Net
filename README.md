@@ -153,9 +153,55 @@ False = Private
 String[] MyServers = Minehut.GetSelfServers();
 String SuperSecretServersID = MyServers[0];
 
-Minehut.ChangeServerVisibility(SuperSecretServersID, False)
+Minehut.ChangeServerVisibility(SuperSecretServersID, False);
 ```
 
 ### InstallServerPlugin()
 Installs the specified plugin to a minecraft server. For finding the plugin IDs, it is recomended to use the GetPlugins() function.
+For example, this is the ID for the Essentials plugin: 5a42ba4846246d33fa64c625
+
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+IList<Plugin> PublicPlugins = Minehut.GetPlugins();
+String RandomPluginID = PublicPlugins[50].ID;
+
+//installs a the random plugin
+Minehut.InstallServerPlugin(Server1ID, RandomPluginID);
+
+//installs a the Essentials plugin
+Minehut.InstallServerPlugin(Server1ID, "5a42ba4846246d33fa64c625");
+```
+
+### RemoveServerPlugin()
+Uninstalls a plugin form a minecraft server. Pretty similar to InstallServerPlugin(), but instead of installing the plugin, it removes it.
+
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+IList<InstalledPlugins> MyInstalledPlugins = Minehut.GetServerPlugins(Server1ID);
+String RandomInstalledPluginID = MyInstalledPlugins[4].ID;
+
+//uninstalls a the random plugin
+Minehut.RemoveServerPlugin(Server1ID, RandomPluginID);
+
+//uninstalls a the Essentials plugin
+Minehut.RemoveServerPlugin(Server1ID, "5a42ba4846246d33fa64c625");
+```
+
+### RepairServer()
+Repairs all of the minecraft server files, used to fixed broken/corrupt minecraft server files.
+
+```C#
+String[] MyServers = Minehut.GetSelfServers();
+String Sevrer1ID = MyServers[0];
+
+Minehut.RepairServer(Server1ID);
+```
+
+
+
+
 
